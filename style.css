@@ -1,0 +1,45 @@
+body {
+  background-image: url('/carrot/img/background.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+  outline: none;
+  background-color: beige;
+  border-radius: 20%;
+  height: 30px;
+  width: 30px;
+  margin-bottom: 10px;
+}
+
+.timer {
+  margin: auto;
+  margin-bottom: 5px;
+  display: block;
+  background-color: white;
+  border-color: black;
+  border: solid;
+  border-radius: 10%;
+  height: 30px;
+  width: 100px;
+  text-align: center;
+  align-items: center;
+  line-height: 30px;
+}
+
+.counter {
+  line-height: 30px;
+  text-align: center;
+  align-items: center;
+  margin: auto;
+  background-color: rgb(193, 132, 28);
+  color: aliceblue;
+  border-color: black;
+  border: solid;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+}
