@@ -4,12 +4,13 @@ const counter = document.querySelector('.counter');
 const gameArea = document.querySelector('.gameArea');
 
 let seconds = 10;
+let cntNum = 10;
 let countdown;
 let winWidth = window.innerWidth;
 let winHeight = window.innerHeight;
 
 playBtn.addEventListener('click', () => {
-  counter.textContent = '10';
+  counter.textContent = `${cntNum}`;
   timer.textContent = '10:00';
 
   countdown = setInterval(() => {
@@ -21,21 +22,47 @@ playBtn.addEventListener('click', () => {
     }
   }, 1000);
 
-  createCarrots();
+  createItem('carrot');
+  createItem('bug');
 });
 
-function createCarrots() {
+counter.textContent.addEventListener('change', () => {
+  console.log('changed');
+});
+function createItem(input) {
   for (let i = 0; i < 10; i++) {
-    const carrot = document.createElement('div');
-    carrot.setAttribute('class', 'carrot');
-    carrot.innerHTML = '<img src="img/carrot.png" alt="carrot">';
+    const gameItem = document.createElement('div');
+    gameItem.setAttribute('class', 'item');
+    gameItem.setAttribute(
+      'id',
+      input === 'carrot' ? `carrot_${i}` : `bug_${i}`
+    );
+    gameItem.setAttribute(
+      'onclick',
+      input === 'carrot' ? `deleteItem(carrot_${i})` : 'endGame()'
+    );
+    gameItem.innerHTML = `<img src="img/${input}.png" alt="${input}">`;
 
     const randomWidth = positionRandom(0, winWidth);
     const randomHeight = positionRandom(0, winHeight);
-    carrot.style.left = randomWidth + 'px';
-    carrot.style.top = randomHeight + 'px';
-    gameArea.appendChild(carrot);
+    gameItem.style.left = randomWidth + 'px';
+    gameItem.style.top = randomHeight + 'px';
+    gameArea.appendChild(gameItem);
   }
+}
+
+function deleteItem(id) {
+  cntNum--;
+  counter.textContent = `${cntNum}`;
+  gameArea.removeChild(id);
+  if (cntNum === 0) {
+    console.log('win');
+    // win popup
+  }
+}
+
+function endGame() {
+  // lose popup
 }
 
 function positionRandom(min, max) {

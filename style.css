@@ -14,11 +14,16 @@ button {
   width: 30px;
   margin-bottom: 10px;
 }
-.carrot {
+.item {
   position: absolute;
+  cursor: pointer;
 }
 
 .console {
+  position: relative;
+}
+
+.gameArea {
   position: relative;
 }
 
