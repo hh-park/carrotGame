@@ -10,9 +10,14 @@ button {
   outline: none;
   background-color: beige;
   border-radius: 20%;
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 40px;
+  margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.play {
+  margin: auto;
 }
 .item {
   position: absolute;
@@ -21,10 +26,12 @@ button {
 
 .console {
   position: relative;
+  padding-top: 50px;
 }
 
 .gameArea {
   position: relative;
+  margin-top: 50px;
 }
 
 .timer {
@@ -54,4 +61,32 @@ button {
   border-radius: 50%;
   height: 30px;
   width: 30px;
+}
+
+.result {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.resultPopup {
+  position: relative;
+  text-align: center;
+  background: rgb(0, 0, 0, 0.5);
+  margin: auto;
+  margin-top: 300px;
+  height: 100px;
+  width: 300px;
+  border-radius: 20px;
+}
+
+.resultValue {
+  font-size: xx-large;
+  font-weight: bold;
+  display: block;
+  color: white;
+  opacity: initial;
+  margin: auto;
 }
