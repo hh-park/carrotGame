@@ -1,3 +1,164 @@
+'use strict';
+
+const IMG_SIZE = 80;
+const CARROT_CNT = 5;
+const BUG_CNT = 5;
+const GAME_DURATION = 7;
+
+const field = document.querySelector('.game__field');
+const fieldRect = field.getBoundingClientRect();
+const gameBtn = document.querySelector('.game__button');
+const gameTimer = document.querySelector('.game__timer');
+const gameScore = document.querySelector('.game__score');
+
+const popUp = document.querySelector('.pop-up');
+const popUpText = document.querySelector('.pop-up__message');
+const popUpRefresh = document.querySelector('.pop-up__refresh');
+
+let started = false;
+let score = 0;
+let timeCnt = undefined;
+
+field.addEventListener('click', onFieldClick);
+
+gameBtn.addEventListener('click', () => {
+  if (started) {
+    stopGame();
+  } else {
+    startGame();
+  }
+});
+
+popUpRefresh.addEventListener('click', () => {
+  stopGameTimer();
+  startGame();
+  hidePopUp();
+});
+
+function startGame() {
+  started = true;
+  initGame();
+  showStopButton();
+  showTimerAndScore();
+  startGameTimer();
+}
+
+function stopGame() {
+  started = false;
+  stopGameTimer();
+  hideGameButton();
+  showPopUpWithText('REPLAY?');
+}
+
+function finishGame(win) {
+  started = false;
+  stopGameTimer();
+  hideGameButton();
+  showPopUpWithText(win ? 'YOU WON' : 'YOU LOST');
+}
+
+function showStopButton() {
+  const icon = gameBtn.querySelector('.fa-solid');
+  icon.classList.add('fa-stop');
+  icon.classList.remove('fa-play');
+}
+
+function hideGameButton() {
+  gameBtn.style.visibility = 'hidden';
+}
+
+function showTimerAndScore() {
+  gameTimer.style.visibility = 'visible';
+  gameScore.style.visibility = 'visible';
+}
+
+function startGameTimer() {
+  let remainingTimeSec = GAME_DURATION;
+  updateTimerText(remainingTimeSec);
+  timeCnt = setInterval(() => {
+    if (remainingTimeSec <= 0) {
+      clearInterval(timeCnt);
+      finishGame(CARROT_CNT === score);
+      return;
+    }
+    updateTimerText(--remainingTimeSec);
+  }, 1000);
+}
+
+function stopGameTimer() {
+  clearInterval(timeCnt);
+}
+
+function updateTimerText(time) {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+  gameTimer.innerHTML = `${minutes}:${seconds}`;
+}
+
+function showPopUpWithText(text) {
+  popUpText.innerText = text;
+  popUp.classList.remove('pop-up--hide');
+}
+
+function hidePopUp() {
+  popUp.classList.add('pop-up--hide');
+}
+
+function initGame() {
+  field.innerHTML = '';
+  score = 0;
+  gameScore.innerText = CARROT_CNT;
+  addItem('carrot', CARROT_CNT, 'img/carrot.png');
+  addItem('bug', BUG_CNT, 'img/bug.png');
+}
+
+function onFieldClick(event) {
+  if (!started) {
+    return;
+  }
+  const target = event.target;
+  if (target.matches('.carrot')) {
+    target.remove();
+    score++;
+    updateScoreBoard();
+    if (score === CARROT_CNT) {
+      finishGame(true);
+    }
+  } else if (target.matches('.bug')) {
+    stopGameTimer();
+    finishGame(false);
+  }
+}
+
+function updateScoreBoard() {
+  gameScore.innerText = CARROT_CNT - score;
+}
+
+function addItem(className, count, imgPath) {
+  const x1 = 0;
+  const y1 = 0;
+  const x2 = fieldRect.width - IMG_SIZE;
+  const y2 = fieldRect.height - IMG_SIZE;
+
+  for (let i = 0; i < count; i++) {
+    const item = document.createElement('img');
+    item.setAttribute('class', className);
+    item.setAttribute('src', imgPath);
+    item.style.position = 'absolute';
+    const x = randomNumber(x1, x2);
+    const y = randomNumber(y1, y2);
+    item.style.left = `${x}px`;
+    item.style.top = `${y}px`;
+    field.appendChild(item);
+  }
+}
+
+function randomNumber(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+// -----------------------------------------------------------------
+
 const playBtn = document.querySelector('.playBtn');
 const timer = document.querySelector('.timer');
 const counter = document.querySelector('.counter');
