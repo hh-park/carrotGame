@@ -5,6 +5,11 @@ button {
   cursor: pointer;
 }
 
+body {
+  text-align: center;
+  background-color: black;
+}
+
 .game {
   background: url('/carrot/img/background.png') center/cover;
   width: 800px;
@@ -44,6 +49,8 @@ button {
   border-radius: 20px;
   font-size: 32px;
   visibility: hidden;
+  user-select: none;
+  cursor: auto;
 }
 
 .game__score {
@@ -54,9 +61,11 @@ button {
   text-align: center;
   border: 4px solid white;
   border-radius: 50%;
-  font-size: 42px;
+  font-size: 38px;
   color: white;
   visibility: hidden;
+  user-select: none;
+  cursor: auto;
 }
 
 .game__field {
@@ -98,14 +107,23 @@ button {
   font-size: 24px;
 }
 
+.carrot,
+.bug {
+  transition: transform 100ms ease-in;
+}
+.carrot:hover,
+.bug:hover {
+  transform: scale(1.1);
+}
+
 /* me */
 
-body {
-  /* background-image: url('/carrot/img/background.png'); */
+/* body {
+  background-image: url('/carrot/img/background.png');
   background-size: 100%;
   background-repeat: no-repeat;
   text-align: center;
-}
+} */
 
 .play {
   margin: auto;
