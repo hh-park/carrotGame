@@ -9,7 +9,16 @@ export default class Field {
     this.bugCount = bugCount;
     this.field = document.querySelector('.game__field');
     this.fieldRect = this.field.getBoundingClientRect();
+    // this.onClick = this.onClick.bind(this);
+    // this.field.addEventListener('click', (event) => this.onClick(event));
     this.field.addEventListener('click', this.onClick);
+    /*
+    함수를 인자로 전달할 때 class 정보는 전달되지 않음
+    this.onClick은 Field class의 멤버함수, so this.onClick을 전달하면 class도 전달되야함
+    But, Javascript에서는 Class에 있는 함수를 전달할 때 Class무시 & 함수만 콜백으로 전달
+    this가 class가 아니기 때문에 this.onItemClick은 undefined
+    So, 함수와 class를 binding 해줘야함(this binding)
+    */
   }
 
   init() {
@@ -41,7 +50,9 @@ export default class Field {
     }
   }
 
-  onClick(event) {
+  // 멤버변수로 만들기
+  onClick = (event) => {
+    console.log(this);
     const target = event.target;
     if (target.matches('.carrot')) {
       target.remove();
@@ -50,7 +61,7 @@ export default class Field {
     } else if (target.matches('.bug')) {
       this.onItemClick && this.onItemClick('bug');
     }
-  }
+  };
 }
 
 function randomNumber(min, max) {
