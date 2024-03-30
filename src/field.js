@@ -57,7 +57,6 @@ export class Field {
 
   // 멤버변수로 만들기
   onClick = (event) => {
-    console.log(this);
     const target = event.target;
     if (target.matches('.carrot')) {
       target.remove();
