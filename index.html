@@ -31,6 +31,7 @@
     </section>
 
     <!-- me -->
+    <!--     
     <div class="console">
       <div class="play">
         <button class="playBtn">
@@ -41,5 +42,38 @@
       <div class="counter">0</div>
     </div>
     <div class="gameArea"></div>
+  -->
+
+    <button id="btn1">Click to add</button>
+    <button id="btn2">Click to add</button>
+    <div class="box">s</div>
+    <script>
+      const btn1 = document.querySelector('#btn1');
+      btn1.addEventListener('click', () => {
+        const element = document.createElement('hi');
+        document.body.appendChild(element);
+        element.style.color = 'red';
+        element.innerText = 'hello';
+
+        requestAnimationFrame(() => {
+          document.body.style.backgroundColor = 'beige';
+        });
+        requestAnimationFrame(() => {
+          document.body.style.backgroundColor = 'orange';
+        });
+        requestAnimationFrame(() => {
+          document.body.style.backgroundColor = 'red';
+        });
+      });
+
+      const btn2 = document.querySelector('#btn2');
+      const box = document.querySelector('.box');
+      btn2.addEventListener('click', () => {
+        box.style.backgroundColor = 'red';
+        box.style.transition = 'transform 1s ease-in';
+        box.style.transform = 'translateX(800px)';
+        box.style.transform = 'translateX(500px)';
+      });
+    </script>
   </body>
 </html>
